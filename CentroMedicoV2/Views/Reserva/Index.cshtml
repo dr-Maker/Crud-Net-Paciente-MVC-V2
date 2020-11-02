@@ -1,0 +1,42 @@
+﻿@model List < Models.MisReservasModel>
+
+@{
+    ViewBag.Title = "Reservas";
+    ViewBag.TitlePag = "Mis reservas";
+
+    Layout = "~/Views/Shared/_Planilla.cshtml";
+
+    var cc = 0;
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Médico</th>
+            <th>Especialidad</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            cc++;
+        <tr>
+            <td>@cc</td>
+            <td>@item.FechaTxt</td>
+            <td>@item.HoraminutoTxt</td>
+            <td>@item.NomApeMedico</td>
+            <td>@item.nom_especialidad</td>
+            <td>
+                @Html.ActionLink("Anular", "AnularReserva", new { id = item.idreserva })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
