@@ -1,0 +1,39 @@
+﻿@model Models.HoraModel
+
+@{
+    ViewBag.Title = "Reservas";
+    ViewBag.TitlePag = "Confirmar Hora";
+
+    Layout = "~/Views/Shared/_Planilla.cshtml";
+}
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Fecha</label>
+        <input class="form-control" readonly type="text" value="@Model.FechaTxt" />
+    </div>
+
+    <div class="form-group">
+        <label>Hora</label>
+        <input class="form-control" readonly type="text" value="@Model.HoraminutoTxt" />
+    </div>
+
+    <div class="form-group">
+        <label>Medico</label>
+        <input class="form-control" readonly type="text" value="@Model.Medico.NomApeMedico" />
+    </div>
+
+    <div class="form-group">
+        <label>Especialidad</label>
+        <input class="form-control" readonly type="text" value="@Model.Medico.NomEspecialidad" />
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="idmedico" value="@Model.Medico.Idmedico" />
+        <input type="hidden" name="idhora" value="@Model.Idhora" />
+        <input class="btn btn-success" type="submit" value="Confirmar" />
+    </div>
+
+</form>
+

@@ -28,9 +28,39 @@ namespace CentroMedicoV2.Controllers
             return View(lista);
         }
 
-        [HttpGet]
-        public ActionResult TomarHora(int idhora, int idmed)
+
+        [HttpPost]
+        public ActionResult HorasDisponibles(FormCollection frm)
         {
+            List<HorasDisponiblesModel> lista = BussReserva.HorasDisponibles();
+            return View(lista);
+        }
+
+        [HttpGet]
+        public ActionResult TomarHora(int id)
+        {
+            HoraModel obj = BussHora.Buscar(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        public ActionResult TomarHora(FormCollection frm)
+        {
+            int idpac = int.Parse(Session["idusuario"].ToString());
+            ReservaModel obj = new ReservaModel();
+            
+
+            obj.Medico = new MedicoModel();
+            obj.Medico.Idmedico = int.Parse(frm["idmedico"].ToString());  ;
+
+            obj.Paciente = new PacienteModel();
+            obj.Paciente.Idpaciente = idpac;
+
+            obj.Hora = new HoraModel();
+            obj.Hora.Idhora = int.Parse(frm["idmedico"].ToString());
+
+            BussReserva.TomarHora(obj);
+
             return RedirectToAction("Index");
         }
 
@@ -38,12 +68,15 @@ namespace CentroMedicoV2.Controllers
         [HttpGet]
         public ActionResult AnularReserva(int id)
         {
-            return View();
+
+            MisReservasModel obj = BussReserva.Buscar(id);
+            return View(obj);
         }
 
         [HttpPost]
         public ActionResult AnularReserva(int id, FormCollection frm)
         {
+            BussReserva.AnularReserva(id);
             return RedirectToAction("Index");
         }
 

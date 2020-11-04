@@ -1,0 +1,38 @@
+﻿@model Models.MisReservasModel
+
+@{
+    ViewBag.Title = "Reservas";
+    ViewBag.TitlePag = "Anular reserva";
+    Layout = "~/Views/Shared/_Planilla.cshtml";
+}
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Fecha</label>
+        <input class="form-control" readonly type="text" value="@Model.FechaTxt" />
+    </div>
+
+    <div class="form-group">
+        <label>Hora</label>
+        <input class="form-control" readonly type="text" value="@Model.HoraminutoTxt" />
+    </div>
+
+    <div class="form-group">
+        <label>Medico</label>
+        <input class="form-control" readonly type="text" value="@Model.NomApeMedico" />
+    </div>
+
+    <div class="form-group">
+        <label>Especialidad</label>
+        <input class="form-control" readonly type="text" value="@Model.nom_especialidad" />
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-danger" type="submit" value="Confirmar" />
+    </div>
+
+</form>
+
+
+

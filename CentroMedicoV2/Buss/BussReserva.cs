@@ -54,6 +54,34 @@ namespace Buss
             return lista;
         }
 
+
+        public static MisReservasModel Buscar(int id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_buscar_reserva";
+            cmd.Parameters.Add("@idreserva", SqlDbType.Int).Value = id;
+            DataTable dt = db.ejecutarConsulta(cmd);
+
+            MisReservasModel obj = new MisReservasModel();
+
+            foreach (DataRow row in dt.Rows)
+            {
+             
+                obj.idreserva = int.Parse(row["idreserva"].ToString());
+                obj.fecha = DateTime.Parse(row["fecha"].ToString());
+                obj.horaminuto = TimeSpan.Parse(row["horaminuto"].ToString());
+                obj.nombres_me = row["nombres_me"].ToString();
+                obj.apellidos_me = row["apellidos_me"].ToString();
+                obj.nom_especialidad = row["nom_especialidad"].ToString();
+
+                obj.nombres_pa = row["nombres_pa"].ToString();
+                obj.apellidos_pa = row["apellidos_pa"].ToString();              
+            }
+
+            return obj;
+        }
+
         public static List<HorasDisponiblesModel> HorasDisponibles()
         {
             SqlCommand cmd = new SqlCommand();
@@ -90,6 +118,29 @@ namespace Buss
             }
 
             return lista;
+        }
+
+        public static bool TomarHora(ReservaModel obj)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_hora_reserva";
+            cmd.Parameters.Add("@idmedico", SqlDbType.Int).Value = obj.Medico.Idmedico;
+            cmd.Parameters.Add("@idpaciente", SqlDbType.Int).Value = obj.Paciente.Idpaciente;
+            cmd.Parameters.Add("@idhora", SqlDbType.Int).Value = obj.Hora.Idhora;
+
+            return db.ejecutarAccion(cmd);
+
+        }
+
+        public static bool AnularReserva(int id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_anular_reserva";
+            cmd.Parameters.Add("@idreserva", SqlDbType.Int).Value = id;
+     
+            return db.ejecutarAccion(cmd);
         }
     }
 }
