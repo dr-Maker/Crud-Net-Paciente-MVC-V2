@@ -34,5 +34,23 @@ namespace Buss
             return db.ejecutarConsulta(cmd);
         }
 
+
+        public static bool RegistraPaciente(PacienteModel obj, string clave)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "sp_registra_paciente";
+            cmd.Parameters.Add("@nombres", SqlDbType.VarChar, 50).Value = obj.Nombres;
+            cmd.Parameters.Add("@apellidos", SqlDbType.VarChar, 50).Value = obj.Apellidos;
+            cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = obj.Email;
+            cmd.Parameters.Add("@telefono", SqlDbType.Int).Value = obj.Telefono;
+            cmd.Parameters.Add("@genero", SqlDbType.Char, 1).Value = obj.Genero;
+            cmd.Parameters.Add("@edad", SqlDbType.Int).Value = obj.Edad;
+
+            cmd.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = clave;
+
+            return db.ejecutarAccion(cmd);
+        }
+
     }
 }

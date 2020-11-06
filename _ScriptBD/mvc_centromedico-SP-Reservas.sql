@@ -144,5 +144,6 @@ as
 
 go
 
-exec sp_mis_reservas 2001;
+-- exec sp_mis_reservas 2001;
 
+exec sp_listar_hora_filtro 1, '1-1-1', 0, 2;

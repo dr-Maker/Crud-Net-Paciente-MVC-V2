@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+    ViewBag.TitlePag = "Registro de paciente";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<form method="post">
+
+    <div class="form-group">
+        <label>Nombres:</label>
+        <input class="form-control" type="text" name="nombres" value="" required />
+    </div>
+
+    <div class="form-group">
+        <label>Apellidos:</label>
+        <input class="form-control" type="text" name="apellidos" value="" required />
+    </div>
+
+    <div class="form-group">
+        <label>Email:</label>
+        <input class="form-control" type="email" name="email" value="" required />
+    </div>
+
+    <div class="form-group">
+        <label>Teléfono:</label>
+        <input class="form-control" type="number" name="telefono" value="" required />
+    </div>
+
+    <div class="form-group">
+        <label>Genero:</label>
+        <select class="form-control" name="genero" required>
+            <option value="">Seleccione</option>
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label>Edad:</label>
+        <input class="form-control" type="number" min="0" name="edad" value="" required />
+    </div>
+    <div class="form-group">
+        <label>Clave:</label>
+        <input class="form-control" type="password" name="clave" value="" required />
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-dark" type="submit" value="Registrar" />
+    </div>
+
+    <p>
+        @Html.ActionLink("Volver", "Index", "Usuario")
+    </p>
+</form>
+

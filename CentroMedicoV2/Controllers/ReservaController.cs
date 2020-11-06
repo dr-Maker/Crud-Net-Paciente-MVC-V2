@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CentroMedicoV2.Controllers
+namespace Controllers
 {
     public class ReservaController : Controller
     {
@@ -24,7 +24,17 @@ namespace CentroMedicoV2.Controllers
         [HttpGet]
         public ActionResult HorasDisponibles()
         {
-            List<HorasDisponiblesModel> lista = BussReserva.HorasDisponibles();
+
+            if (!Session["login"].ToString().Equals("N3T4CC3SS"))
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+
+            ViewBag.Medicos = BussMedico.Listar02();
+            ViewBag.Especialidades = BussEspecialidad.Listar02();
+
+            ViewBag.Params = new ParamsHora();
+            List<HorasDisponiblesModel> lista = BussReserva.HorasDisponibles(ViewBag.Params);
             return View(lista);
         }
 
@@ -32,7 +42,24 @@ namespace CentroMedicoV2.Controllers
         [HttpPost]
         public ActionResult HorasDisponibles(FormCollection frm)
         {
-            List<HorasDisponiblesModel> lista = BussReserva.HorasDisponibles();
+            if (!Session["login"].ToString().Equals("N3T4CC3SS"))
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+
+            ViewBag.Medicos = BussMedico.Listar02();
+            ViewBag.Especialidades = BussEspecialidad.Listar02();
+
+            ViewBag.Params = new ParamsHora();
+
+            if (!frm["fecha"].ToString().Equals(""))
+            { 
+            ViewBag.Params.fecha = DateTime.Parse(frm["fecha"].ToString());
+            }
+            ViewBag.Params.idmedico = int.Parse(frm["idmedico"].ToString());
+            ViewBag.Params.idespecialidad = int.Parse(frm["idespecialidad"].ToString());
+
+            List<HorasDisponiblesModel> lista = BussReserva.HorasDisponibles(ViewBag.Params);
             return View(lista);
         }
 
@@ -57,7 +84,7 @@ namespace CentroMedicoV2.Controllers
             obj.Paciente.Idpaciente = idpac;
 
             obj.Hora = new HoraModel();
-            obj.Hora.Idhora = int.Parse(frm["idmedico"].ToString());
+            obj.Hora.Idhora = int.Parse(frm["idhora"].ToString());
 
             BussReserva.TomarHora(obj);
 
@@ -79,6 +106,7 @@ namespace CentroMedicoV2.Controllers
             BussReserva.AnularReserva(id);
             return RedirectToAction("Index");
         }
+
 
     }
 }

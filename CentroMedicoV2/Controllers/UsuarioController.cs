@@ -16,7 +16,10 @@ namespace CentroMedicoV2.Controllers
         {
             ViewBag.Msg = "";
             ViewBag.Display = "none";
-            return View();
+
+            UsuarioModel obj = new UsuarioModel();
+
+            return View(obj);
         }
 
         [HttpPost]
@@ -39,8 +42,44 @@ namespace CentroMedicoV2.Controllers
             {
                 ViewBag.Msg = "Usuario y/o clave incorrecta!";
                 ViewBag.Display = "block";
-                return View();
+                return View(obj);
             }
+        }
+        public ActionResult Logout()
+        {
+            Session["login"] = "";
+            Session["idusuario"] = "0";
+            Session["usuario"] = "";
+            Session["email"] = "";
+            Session["perfil"] = "2";
+
+            return RedirectToAction("Index","Usuario");
+        }
+
+        [HttpGet]
+        public ActionResult RegistraPaciente()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistraPaciente(FormCollection frm)
+        {
+            PacienteModel obj = new PacienteModel();
+
+            obj.Nombres = frm["nombres"].ToString();
+            obj.Apellidos = frm["apellidos"].ToString();
+            obj.Email = frm["email"].ToString();
+            obj.Telefono = int.Parse(frm["telefono"].ToString());
+            obj.Genero = char.Parse(frm["genero"].ToString());
+            obj.Edad = int.Parse(frm["edad"].ToString());
+           
+            var clave = frm["clave"].ToString();
+
+            BussUsuario.RegistraPaciente(obj, clave);
+
+            return RedirectToAction("Index","Usuario");
         }
     }
 }

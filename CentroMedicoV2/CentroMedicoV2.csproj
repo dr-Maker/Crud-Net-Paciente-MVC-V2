@@ -121,6 +121,7 @@
     <Compile Include="Models\MedicoModel.cs" />
     <Compile Include="Models\MisReservasModel.cs" />
     <Compile Include="Models\PacienteModel.cs" />
+    <Compile Include="Models\ParamsHora.cs" />
     <Compile Include="Models\ReservaModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +136,7 @@
     <Content Include="Views\Reserva\HorasDisponibles.cshtml" />
     <Content Include="Views\Reserva\TomarHora.cshtml" />
     <Content Include="Views\Reserva\AnularReserva.cshtml" />
+    <Content Include="Views\Usuario\RegistraPaciente.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

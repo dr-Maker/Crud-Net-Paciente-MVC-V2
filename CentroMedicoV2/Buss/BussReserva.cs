@@ -82,15 +82,15 @@ namespace Buss
             return obj;
         }
 
-        public static List<HorasDisponiblesModel> HorasDisponibles()
+        public static List<HorasDisponiblesModel> HorasDisponibles(ParamsHora par)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "sp_listar_hora_filtro";
             cmd.Parameters.Add("@idestado", SqlDbType.Int).Value = 1;
-            cmd.Parameters.Add("@fecha", SqlDbType.Date).Value = "1-1-1";
-            cmd.Parameters.Add("@idmedico", SqlDbType.Int).Value = 0;
-            cmd.Parameters.Add("@idespecialidad", SqlDbType.Int).Value = 0;
+            cmd.Parameters.Add("@fecha", SqlDbType.Date).Value = par.fecha;
+            cmd.Parameters.Add("@idmedico", SqlDbType.Int).Value = par.idmedico;
+            cmd.Parameters.Add("@idespecialidad", SqlDbType.Int).Value = par.idespecialidad;
             DataTable dt = db.ejecutarConsulta(cmd);
 
             List<HorasDisponiblesModel> lista = new List<HorasDisponiblesModel>();

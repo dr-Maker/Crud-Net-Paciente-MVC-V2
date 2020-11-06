@@ -6,6 +6,15 @@
 
     Layout = "~/Views/Shared/_Planilla.cshtml";
 
+
+    var fecha = string.Empty;
+    if (ViewBag.Params.fecha != DateTime.Parse("1-1-1"))
+    {
+        fecha = String.Format("{0:yyyy-MM-dd}" , ViewBag.Params.fecha);
+    }
+    var idmed = ViewBag.Params.idmedico;
+    var idesp = ViewBag.Params.idespecialidad;
+
     var cc = 0;
 }
 
@@ -19,13 +28,40 @@
     <div class="row">
 
         <div class="col-md-3">
-            <input class="form-control" type="date" name="=fecha" />
+            <input class="form-control" type="date" name="fecha" value="@fecha"/>
         </div>
         <div class="col-md-3">
-            <select class="form-control" name="idmedico"></select>
+            <select class="form-control" name="idmedico">
+                <option value="0">Todos</option>
+                @foreach (var item in ViewBag.Medicos)
+                {
+                    if (idmed == item.Idmedico)
+                    {
+                        <option selected value="@item.Idmedico">@item.NomApeMedico</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Idmedico">@item.NomApeMedico</option>
+                    }
+                }
+            </select>
         </div>
         <div class="col-md-3">
-            <select class="form-control" name="idmedico"></select>
+            <select class="form-control" name="idespecialidad">
+                <option value="0">Todos</option>
+                @foreach (var item in ViewBag.Especialidades)
+                {
+
+                    if (idesp == item.Idespecialidad)
+                    {
+                        <option selected value="@item.Idespecialidad">@item.Descripcion</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Idespecialidad">@item.Descripcion</option>
+                    }
+                }
+            </select>
         </div>
         <div class="col-md-2">
             <input class="btn btn-warning" type="submit" value="buscar" />
